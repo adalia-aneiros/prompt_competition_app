@@ -11,5 +11,5 @@ pandas\
 scikit-learn\
 numpy\
 keras\
-google-cloud-aiplartorm\
+google-cloud-aiplatform\
 }
