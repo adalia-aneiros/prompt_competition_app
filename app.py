@@ -1,3 +1,5 @@
+
+# Import libraries
 import streamlit as st
 import numpy as np
 from tensorflow.keras.models import load_model
@@ -6,10 +8,14 @@ import io
 from google.cloud import aiplatform
 import google.generativeai as genai
 
+# Load predictive model (neural network)
 model_diabetes = load_model('diabetes_predictor.keras') 
+
+# Load private Api key to get access to Gemini
 genai.configure(api_key="AIzaSyCes7jo5QiuKmhVTwVHNedLItNdMMlPlCY")
 model = genai.GenerativeModel("gemini-1.5-flash")
 
+# Function to make predictions based on the input of the user and using the predictive model
 def make_prediction(input_data):
     input_data = np.array([input_data])
     prediction = model_diabetes.predict([input_data])
@@ -40,6 +46,7 @@ def get_recommendations(prediction, input_data):
     response = model.generate_content(prompt)
     return response.text 
 
+# Design and questions of the app
 st.title('🩺 Diabetes prediction Application')
 st.subheader('Please fill out the following questionnaire to obtain information about your health!')
 
@@ -59,8 +66,8 @@ bmi = st.slider('**Body mass index:**', min_value=10.0, max_value=50.0, step=0.1
 HbA1c_level = st.slider('**How is your homoglobin level?:**', min_value=3.0, max_value=10.0, step=0.1)
 blood_glucose_level = st.slider('**How is your blood glucose level?:**', min_value=50, max_value=200, step=1)
 
-# Change type of responses
 
+# Change type of responses
 def yes_no_to_binary(value):
     return 1 if value == 'Yes' else 0
 
@@ -81,7 +88,7 @@ elif smoking_history_binary == 'Not current':
     smoking_history_binary = 5
 
 
-# Button to trigger prediction
+# Button to trigger prediction and show results and recommendations
 if st.button('Predict'):   
     inputs = [
         gender_binary,
