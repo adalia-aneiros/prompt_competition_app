@@ -8,18 +8,12 @@ import io
 from google.cloud import aiplatform
 import google.generativeai as genai
 
-headers = {
-    "authorization" : st.secrets["api_key"],
-    "content-type" : "application/json"
-}
-
-
 
 # Load predictive model (neural network)
 model_diabetes = load_model('diabetes_predictor.keras') 
 
 
-api_key = st.secrets["gemini"]["api_key"]
+api_key = st.secrets["gemini_api_key"]
 
 # Configurar la API de Gemini
 genai.configure(api_key=api_key)
