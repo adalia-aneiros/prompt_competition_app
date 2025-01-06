@@ -5,3 +5,4 @@ numpy
 keras
 google-cloud-aiplatform
 google-generativeai
+streamlit
