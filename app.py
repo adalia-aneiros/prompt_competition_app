@@ -8,17 +8,14 @@ import io
 from google.cloud import aiplatform
 import google.generativeai as genai
 
-
 # Load predictive model (neural network)
 model_diabetes = load_model('diabetes_predictor.keras') 
 
-
+# Private Gemini API
 api_key = st.secrets["gemini_api_key"]
-
-# Configurar la API de Gemini
 genai.configure(api_key=api_key)
 
-# Usar el modelo
+# Use the Gemini model
 model = genai.GenerativeModel("gemini-1.5-flash")
 
 # Function to make predictions based on the input of the user and using the predictive model
